@@ -1,1 +1,1 @@
-Little fork of ls command
+Repository for low level specialization
