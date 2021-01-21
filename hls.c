@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
 	dir_t *opt = malloc(sizeof(dir_t));
 	folder_t *finfo = malloc(sizeof(folder_t));
-	int mode, ret_val = 0;
+	int ret_val = 0;
 
 	opt->hidden = 0;
 	opt->one = 0;
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	finfo->err = 0;
 	finfo->paths = malloc(sizeof(char *) * (argc - 1));
 
-	mode = GetMode(argc - 1, (argv + 1), &opt);
+	GetMode(argc - 1, (argv + 1), &opt);
 	OnlyFolders(argc - 1, (argv + 1), finfo);
 
 	if (opt->err != 0)

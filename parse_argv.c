@@ -15,7 +15,7 @@ int GetMode(int argc, char **argv, dir_t **dir_opt)
 	for (z = 0; z < argc; z++)
 	{
 		if (*argv[z] == '-')
-			for (x = 0; x < strlen(argv[z]); x++)
+			for (x = 0; x < (int)strlen(argv[z]); x++)
 				switch (argv[z][x])
 				{
 					case 'a':
