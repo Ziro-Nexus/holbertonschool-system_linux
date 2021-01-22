@@ -8,6 +8,7 @@
 #include <dirent.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 /**
  * struct DirOptions - define the functionality of list directories
  * @hidden: -a
@@ -34,6 +35,7 @@ typedef struct FolderInfo
 {
 	int n;
 	int err;
+	char *err_str;
 	char **paths;
 } folder_t;
 

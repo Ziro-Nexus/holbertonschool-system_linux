@@ -1,5 +1,9 @@
 #include "hls.h"
+#include <dirent.h>
+#include <errno.h>
+#include <unistd.h>
 
+int CheckPaths(char **folders, int n, folder_t **finfo);
 
 /**
  * GetMode - check parameters and parse options
@@ -62,9 +66,8 @@ int OnlyFolders(int argc, char **argv, folder_t *finfo)
 	}
 
 	finfo->n = c;
-
-	return (c);
-
+	finfo->err = CheckPaths(finfo->paths, finfo->n, &finfo);
+	return (finfo->err);
 }
 /**
  * del - delete pointers
@@ -80,4 +83,29 @@ void del(int argc, char **arr)
 		free(arr[x]);
 
 	free(arr);
+}
+/**
+ * CheckPaths - check for error opening the file
+ * @n: n of arguments
+ * @folders: array of arguments
+ * @finfo: options
+ * Return: Success
+ */
+int CheckPaths(char **folders, int n, folder_t **finfo)
+{
+	int i;
+	DIR *p = NULL;
+
+	for (i = 0; i < n; i++)
+	{
+		p = opendir(folders[i]);
+		if (!p)
+		{
+			(*finfo)->err_str = strdup(folders[i]);
+			return (errno);
+		}
+		closedir(p);
+	}
+
+	return (0);
 }

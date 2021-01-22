@@ -1,4 +1,5 @@
 #include "hls.h"
+#include <stdio.h>
 /**
  * main - Entry Point
  * @argc: number of arguments
@@ -9,7 +10,6 @@ int main(int argc, char *argv[])
 {
 	dir_t *opt = malloc(sizeof(dir_t));
 	folder_t *finfo = malloc(sizeof(folder_t));
-	int ret_val = 0;
 
 	opt->hidden = 0;
 	opt->one = 0;
@@ -27,10 +27,17 @@ int main(int argc, char *argv[])
 	if (opt->err != 0)
 	{
 		printf("hls: invalid option '%c'\n", opt->err);
-		ret_val = 2;
+		errno = 2;
+	}
+	switch (finfo->err) 
+	{
+		case ENOENT: 
+			printf("hls: can't access to: '%s': No such file or directory\n", finfo->err_str);
+			free(finfo->err_str);
+			break;
 	}
 
-	if (opt->err == 0)
+	if (opt->err == 0 && finfo->err == 0)
 		Print(finfo->n, finfo->paths, opt);
 
 	if (finfo->paths)
@@ -39,5 +46,5 @@ int main(int argc, char *argv[])
 	free(finfo);
 	free(opt);
 
-	return (ret_val);
+	return (errno);
 }
