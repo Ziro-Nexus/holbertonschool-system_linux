@@ -40,11 +40,11 @@ void PrintUnique(DIR *dir, dir_t *opt)
 	{
 		if (!opt->hidden && *buff->d_name == '.')
 			continue;
-
-		printf("%s ", buff->d_name);
-
+		printf("%s", buff->d_name);
 		if (opt->one)
 			putchar('\n');
+		else
+			putchar(' ');
 	}
 
 	if (!opt->one)
