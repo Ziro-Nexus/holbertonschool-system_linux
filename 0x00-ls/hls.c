@@ -18,39 +18,34 @@ int main(int argc, char *argv[])
 	opt->long_info = 0;
 	opt->A = 0;
 	opt->err = 0;
-
 	finfo->n = 0;
 	finfo->err = 0;
 	finfo->paths = malloc(sizeof(char *) * (argc - 1));
-
 	GetMode(argc - 1, (argv + 1), &opt);
 	OnlyFolders(argc - 1, (argv + 1), finfo);
-
 	if (opt->err != 0)
 	{
 		printf("hls: invalid option '%c'\n", opt->err);
 		errno = 2;
 	}
-	switch (finfo->err) 
+	switch (finfo->err)
 	{
-		case ENOENT: 
-			dprintf(2, "hls: cannot access to: '%s': %s\n",finfo->err_str,strerror(ENOENT));
+		case ENOENT:
+			dprintf(2, "hls: cannot access to: '%s': %s\n",
+			finfo->err_str, strerror(ENOENT));
 			free(finfo->err_str);
 			break;
 		case EACCES:
-			dprintf(2, "hls: cannot access to: '%s': %s\n",finfo->err_str,strerror(EACCES));
+			dprintf(2, "hls: cannot access to: '%s': %s\n",
+			finfo->err_str, strerror(EACCES));
 			free(finfo->err_str);
 			break;
 	}
-
 	if (opt->err == 0 && finfo->err == 0)
 		Print(finfo->n, finfo->paths, opt);
-
 	if (finfo->paths)
 		del(finfo->n, finfo->paths);
-
 	free(finfo);
 	free(opt);
-
 	return (errno);
 }

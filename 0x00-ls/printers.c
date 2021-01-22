@@ -52,8 +52,13 @@ void PrintUnique(DIR *dir, dir_t *opt)
 
 	closedir(dir);
 }
-
-
+/**
+ * PrintSome- handle some directories
+ * @folders: array of paths
+ * @n: number of arguments
+ * @opt: option of the print
+ * Return: void
+ */
 void PrintSome(char **folders, int n, dir_t *opt)
 {
 	int x;
@@ -62,5 +67,7 @@ void PrintSome(char **folders, int n, dir_t *opt)
 	{
 		printf("%s:\n", folders[x]);
 		PrintUnique(opendir(folders[x]), opt);
+		if (x != (n - 1))
+			putchar('\n');
 	}
 }
