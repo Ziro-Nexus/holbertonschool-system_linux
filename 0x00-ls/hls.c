@@ -34,7 +34,11 @@ int main(int argc, char *argv[])
 	switch (finfo->err) 
 	{
 		case ENOENT: 
-			dprintf(2, "hls: can't access to: '%s': %s\n",finfo->err_str,strerror(ENOENT));
+			dprintf(2, "hls: cannot access to: '%s': %s\n",finfo->err_str,strerror(ENOENT));
+			free(finfo->err_str);
+			break;
+		case EACCES:
+			dprintf(2, "hls: cannot access to: '%s': %s\n",finfo->err_str,strerror(EACCES));
 			free(finfo->err_str);
 			break;
 	}
