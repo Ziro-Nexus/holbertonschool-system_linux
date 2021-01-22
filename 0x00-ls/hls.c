@@ -1,5 +1,7 @@
 #include "hls.h"
+#include <asm-generic/errno-base.h>
 #include <stdio.h>
+#include <string.h>
 /**
  * main - Entry Point
  * @argc: number of arguments
@@ -32,7 +34,7 @@ int main(int argc, char *argv[])
 	switch (finfo->err) 
 	{
 		case ENOENT: 
-			printf("hls: can't access to: '%s': No such file or directory\n", finfo->err_str);
+			dprintf(2, "hls: can't access to: '%s': %s\n",finfo->err_str,strerror(ENOENT));
 			free(finfo->err_str);
 			break;
 	}
