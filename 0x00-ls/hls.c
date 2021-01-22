@@ -32,12 +32,12 @@ int main(int argc, char *argv[])
 	{
 		case ENOENT:
 			dprintf(2, "hls: cannot access to: '%s': %s\n",
-			finfo->err_str, strerror(ENOENT));
+			finfo->err_str, "No such file or directory");
 			free(finfo->err_str);
 			break;
 		case EACCES:
 			dprintf(2, "hls: cannot access to: '%s': %s\n",
-			finfo->err_str, strerror(EACCES));
+			finfo->err_str, "Permission denied");
 			free(finfo->err_str);
 			break;
 	}

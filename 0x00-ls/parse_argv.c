@@ -19,7 +19,7 @@ int GetMode(int argc, char **argv, dir_t **dir_opt)
 	for (z = 0; z < argc; z++)
 	{
 		if (*argv[z] == '-')
-			for (x = 0; x < (int)strlen(argv[z]); x++)
+			for (x = 0; x < (int)StrLen(argv[z]); x++)
 				switch (argv[z][x])
 				{
 					case 'a':
@@ -59,7 +59,7 @@ int OnlyFolders(int argc, char **argv, folder_t *finfo)
 	{
 		if (*argv[i] != '-')
 		{
-			finfo->paths[c] = strdup(argv[i]);
+			finfo->paths[c] = StrDup(argv[i]);
 			c++;
 		}
 
@@ -101,7 +101,7 @@ int CheckPaths(char **folders, int n, folder_t **finfo)
 		p = opendir(folders[i]);
 		if (!p)
 		{
-			(*finfo)->err_str = strdup(folders[i]);
+			(*finfo)->err_str = StrDup(folders[i]);
 			return (errno);
 		}
 		closedir(p);

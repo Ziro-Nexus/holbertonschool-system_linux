@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <dirent.h>
-#include <string.h>
 #include <stdlib.h>
 #include <errno.h>
 /**
@@ -43,4 +42,6 @@ int GetMode(int argc, char **argv, dir_t **dir_opt);
 void Print(int n_folders, char **folders, dir_t *opt);
 int OnlyFolders(int argc, char **argv, folder_t *finfo);
 void del(int argc, char **arr);
+char *StrDup(char *src);
+int StrLen(char *str);
 #endif /* hls header */
