@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	OnlyFolders(argc - 1, (argv + 1), finfo);
 	if (opt->err != 0)
 	{
-		printf("hls: invalid option '%c'\n", opt->err);
+		printf("hls: invalid option -- %c\n", opt->err);
 		errno = 2;
 	}
 	switch (finfo->err)
