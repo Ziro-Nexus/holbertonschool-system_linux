@@ -1,7 +1,9 @@
 #include "hls.h"
+#include <stdio.h>
 #include <string.h>
 
 void PrintUnique(DIR *dir, dir_t *opt);
+void PrintSome(char **folders, int n, dir_t *opt);
 
 /**
  * Print - print folders with defined options
@@ -20,6 +22,8 @@ void Print(int n_folders, char **folders, dir_t *opt)
 		case 1:
 			PrintUnique(opendir(*folders), opt);
 			break;
+		default:
+			PrintSome(folders, n_folders, opt);
 	}
 }
 /**
@@ -47,4 +51,16 @@ void PrintUnique(DIR *dir, dir_t *opt)
 		putchar('\n');
 
 	closedir(dir);
+}
+
+
+void PrintSome(char **folders, int n, dir_t *opt)
+{
+	int x;
+
+	for (x = 0; x < n; x++)
+	{
+		printf("%s:\n", folders[x]);
+		PrintUnique(opendir(folders[x]), opt);
+	}
 }
