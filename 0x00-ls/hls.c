@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 			free(finfo->err_str);
 			break;
 		case EACCES:
-			dprintf(2, "hls: cannot access %s: %s\n",
+			dprintf(2, "hls: cannot open directory %s: %s\n",
 			finfo->err_str, "Permission denied");
 			free(finfo->err_str);
 			break;
