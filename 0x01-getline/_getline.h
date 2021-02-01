@@ -9,17 +9,40 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-
-typedef struct FileBuffer {
-    int fd;
-    char *buffer;
-    size_t size;
+/**
+ * struct FileBuffer - stuct of fd
+ * @fd: file descriptor
+ * @buffer: current buffer
+ * @size: size of the buffer
+ * @lines_c: lines to handler
+ */
+typedef struct FileBuffer
+{
+	int fd;
+	char *buffer;
+	size_t size;
+	int lines_c;
 } fbuffer_t;
-
-typedef struct LinkedList {
-    fbuffer_t *file_buffer;
-    struct LinkedList *next;
+/**
+ * struct LinkedList - stack of fb buffer
+ * @file_buffer: fd buffer struct
+ * @next: next element
+ */
+typedef struct LinkedList
+{
+	fbuffer_t *file_buffer;
+	struct LinkedList *next;
 } list_t;
+/**
+ * struct Line - struct of the line
+ * @line: buffer of the line
+ * @line_size: size of the line
+ */
+typedef struct Line
+{
+	char *line;
+	size_t line_size;
+} line_t;
 
 char *_getline(const int fd);
 fbuffer_t *parser(int fd);
