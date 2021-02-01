@@ -119,6 +119,9 @@ char *_getline(const int fd)
 	size_t line_size;
 	line_t *line_handler = NULL;
 
+	if (fd == -1)
+		return (NULL);
+
 	if (!fd_list)
 	{
 		insert(&fd_list, fd);
