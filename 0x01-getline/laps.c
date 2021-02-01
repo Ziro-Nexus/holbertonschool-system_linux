@@ -1,5 +1,4 @@
 #include "laps.h"
-
 /**
  * chec - checks if id is in list
  * @head: head of list of cars
@@ -46,7 +45,7 @@ void _free(car_t *head)
  */
 car_t *insert(car_t **head, int id)
 {
-	car_t *current = NULL;
+	car_t *curr = NULL;
 	car_t *new = NULL;
 
 	if (!head)
@@ -63,19 +62,19 @@ car_t *insert(car_t **head, int id)
 	if (!*head)
 		return (new);
 
-	current = (*head);
-	if (id < current->id)
+	curr = (*head);
+	if (id < curr->id)
 	{
 		new->next = *head;
 		*head = new;
 	}
 	else
 	{
-		while (current->next && current->next->id < id)
-			current = current->next;
+		while (curr->next && curr->next->id < id)
+			curr = curr->next;
 
-		new->next = current->next;
-		current->next = new;
+		new->next = curr->next;
+		curr->next = new;
 	}
 	return (*head);
 }
@@ -87,14 +86,14 @@ car_t *insert(car_t **head, int id)
  */
 void print_cars(car_t *list)
 {
-	car_t *current;
+	car_t *curr;
 
-	current = list;
+	curr = list;
 
-	while (current != NULL)
+	while (curr != NULL)
 	{
-		printf("Car %d [%lu laps]\n", current->id, current->laps);
-		current = current->next;
+		printf("Car %d [%lu laps]\n", curr->id, curr->laps);
+		curr = curr->next;
 	}
 }
 
@@ -111,24 +110,25 @@ void race_state(int *id, size_t size)
 	car_t *check;
 	size_t i = 0;
 
-	if (size == 0)
+	if (!size)
 	{
 		_free(car);
 		return;
 	}
-
 	if (car == NULL)
 	{
 		car = insert(&car, id[0]);
-		car->laps--;
+		car->laps = -1;
 	}
 	for (i = 0; i < size; i++)
 	{
 		check = chec(car, id[i]);
-		if (!check)
+		if (check == NULL)
+		{
 			insert(&car, id[i]);
-		else
-			check->laps++;
+			continue;
+		}
+		check->laps++;
 	}
 
 	printf("Race state:\n");

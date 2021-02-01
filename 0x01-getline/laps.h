@@ -1,8 +1,3 @@
-#ifndef _LAPS_
-#define _LAPS_
-#include <stdlib.h>
-#include <unistd.h>
-
 #ifndef LAPS_H
 #define LAPS_H
 
@@ -24,12 +19,6 @@ typedef struct car
 	struct car *next;
 } car_t;
 
-car_t *check_id(car_t *head, int id);
-car_t *insert_car(car_t **head, int id);
-void free_list(car_t *head);
-void print_cars(car_t *list);
 void race_state(int *id, size_t size);
 
 #endif /*LAPS_H*/
-
-#endif
