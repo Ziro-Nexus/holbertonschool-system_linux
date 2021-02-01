@@ -1,4 +1,5 @@
 #include "_getline.h"
+#include <stdio.h>
 
 /**
  * insert - insert new element to linked list
@@ -88,7 +89,7 @@ line_t *parse_line(list_t **head, int fd)
 	{
 		if (tmp->file_buffer->fd == fd)
 		{
-			if (tmp->file_buffer->lines_c == -1)
+			if (tmp->file_buffer->lines_c == 0)
 				break;
 
 			liner = malloc(sizeof(line_t));
