@@ -144,14 +144,9 @@ char *_getline(const int fd)
 
 	if (!line_handler)
 	{
-		free(fd_list->file_buffer->buffer_ptr);
-		free(fd_list->file_buffer);
-		free(line_handler);
-		free(fd_list);
 		return (NULL);
 	}
 	line = strdup(line_handler->line);
-	free(line_handler->line);
-	free(line_handler);
+
 	return (line);
 }

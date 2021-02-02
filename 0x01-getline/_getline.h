@@ -14,14 +14,12 @@
  * @fd: file to descriptor
  * @buffer: current buffer
  * @size: size of the buffer
- * @buffer_ptr: ptr to buffer[0]
  * @lines_c: lines to handler
  */
 typedef struct FileBuffer
 {
 	int fd;
 	char *buffer;
-	char *buffer_ptr;
 	size_t size;
 	int lines_c;
 } fbuffer_t;
