@@ -108,7 +108,7 @@ line_t *parse_line(list_t **head, int fd)
 	return (NULL);
 }
 /**
- * _getline - get line pointer of fd
+ * _getline - get line pointer of the fd
  * @fd: fd to open
  * Return: current line
  */

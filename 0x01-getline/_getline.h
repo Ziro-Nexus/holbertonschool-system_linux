@@ -11,7 +11,7 @@
 
 /**
  * struct FileBuffer - stuct of fd
- * @fd: file descriptor
+ * @fd: file to descriptor
  * @buffer: current buffer
  * @size: size of the buffer
  * @lines_c: lines to handler
