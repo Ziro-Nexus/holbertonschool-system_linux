@@ -71,7 +71,6 @@ fbuffer_t *parser(int fd)
 	f_struct->fd = fd;
 	f_struct->size = n;
 	f_struct->lines_c = lines_c;
-	f_struct->buffer_ptr = f_struct->buffer;
 	free(buffer);
 	return (f_struct);
 }
