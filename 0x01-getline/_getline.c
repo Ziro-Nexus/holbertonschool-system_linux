@@ -1,5 +1,6 @@
 #include "_getline.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
  * insert - insert new element to linked list
@@ -63,13 +64,15 @@ fbuffer_t *parser(int fd)
 	memcpy(buffer, buf, n);
 	buffer[n] = '\0';
 	f_struct = malloc(sizeof(fbuffer_t));
-	f_struct->buffer = buffer;
+	f_struct->buffer = strdup(buffer);
 	for (a = 0; a < n; a++)
 		if (f_struct->buffer[a] == '\n')
 			lines_c++;
 	f_struct->fd = fd;
 	f_struct->size = n;
 	f_struct->lines_c = lines_c;
+	f_struct->buffer_ptr = f_struct->buffer;
+	free(buffer);
 	return (f_struct);
 }
 /**
@@ -97,9 +100,10 @@ line_t *parse_line(list_t **head, int fd)
 			line = malloc(sizeof(char) * line_size);
 			memcpy(line, tmp->file_buffer->buffer, line_size);
 			line[line_size - 1] = '\0';
-			liner->line = line;
+			liner->line = strdup(line);
 			tmp->file_buffer->buffer += line_size;
 			tmp->file_buffer->lines_c--;
+			free(line);
 			return (liner);
 		}
 		tmp = tmp->next;
@@ -139,7 +143,15 @@ char *_getline(const int fd)
 	line_handler = parse_line(&fd_list, fd);
 
 	if (!line_handler)
+	{
+		free(fd_list->file_buffer->buffer_ptr);
+		free(fd_list->file_buffer);
+		free(line_handler);
+		free(fd_list);
 		return (NULL);
-
-	return (line_handler->line);
+	}
+	line = strdup(line_handler->line);
+	free(line_handler->line);
+	free(line_handler);
+	return (line);
 }
