@@ -11,6 +11,8 @@
         <p>
             Replicant of unix function called "ls"
         </p>
+    </li>
+    <li>
         <p> 
             <bold> 0x01-getline </bold>
         </p>
