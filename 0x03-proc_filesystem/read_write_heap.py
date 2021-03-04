@@ -1,45 +1,52 @@
 #!/usr/bin/python3
-""" write heap """
+"""Overwrites a string in a process' mem file"""
 
-import sys
+from sys import argv
+
+use = "use: read_write_heap.py pid search_string to_replace"
+
+
+def get_maps_file(pid):
+    """doc"""
+    start = stop = None
+    try:
+        with open("/proc/{:d}/maps".format(pid), "r") as file:
+            for line in file:
+                if line.endswith("[heap]\n"):
+                    start, stop = \
+                        [int(x, 16) for x in line.split(" ")[0].split("-")]
+    except Exception as e:
+        print(e) or exit(1)
+    if not start or not stop:
+        print("[ERROR] Heap address not found.") or exit(1)
+    print("[*] Heap starts at {:02X}".format(start))
+    return start, stop
+
+
+def update_mem(pid, search_string, to_replace, start, stop):
+    """doc"""
+    try:
+        with open("/proc/{:d}/mem".format(pid), "r+b") as f:
+            f.seek(start)
+            data = f.read(stop - start)
+            print("[*] Read {:d} bytes".format(stop - start))
+            offset = data.find(search_string.encode())
+            if offset > -1:
+                print("[*] String found at {:02X}"
+                      .format(start + offset))
+                f.seek(start + offset)
+                n = f.write(to_replace.encode() + b'\x00')
+                print("[*] {:d} bytes n!".format(n))
+            else:
+                print(
+                    "[ERROR] String '{:s}' not found in heap."
+                    .format(search_string))
+                exit(1)
+    except Exception as e:
+        print(e) or exit(1)
 
 if __name__ == "__main__":
-    if len(sys.argv != 4):
-        exit(1)
-
-    pid = int(sys.argv[1])
-    to_search = str(sys.argv[2])
-    to_replace = str(sys.argv[3])
-
-    address = ""
-    start = ""
-    end = ""
-    permission = ""
-
-    try:
-        with open("/proc/{}/maps".format(pid), "r") as maps:
-            for line in maps.read().split('\n'):
-                if line.split(' ')[-1] == "[heap]":
-                    address = line.split('-')[0:2]
-                    if len(address) != 2:
-                        print("wrong addr format")
-                        exit(1)
-                    start = int(address[0], 16)
-                    end = int(address[1].split(' ')[0], 16)
-                    permission = address[1].split(' ')[1]
-    except Exception as e:
-        print(e)
-        sys.exit(1)
-
-    try:
-        mem_file = open("/proc/{}/mem".format(pid), 'rb+')
-        mem_file.seek(start)
-        heap = mem_file.read(end - start)
-        i = heap.index(bytes(to_search, "ASCII"))
-        print("[*] Found '{}' at {:x}".format(to_search, i))
-        print("[*] Writing '{}' at {:x}".format(to_replace, start + i))
-        mem_file.seek(start + i)
-        mem_file.write(bytes(to_replace, "ASCII"))
-    except Exception as e:
-        print(e)
-        exit(1)
+    if len(argv) < 4 or len(argv[2]) < len(argv[3]):
+        print(use) or exit(1)
+    start, stop = get_maps_file(int(argv[1]))
+    update_mem(int(argv[1]), argv[2], argv[3], start, stop)
