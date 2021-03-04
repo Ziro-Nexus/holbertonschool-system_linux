@@ -36,10 +36,10 @@ def update_mem(pid, search_string, to_replace, start, stop):
                       .format(start + offset))
                 f.seek(start + offset)
                 n = f.write(to_replace.encode() + b'\x00')
-                print("[*] {:d} bytes n!".format(n))
+                print("[*] {:d} bytes".format(n))
             else:
                 print(
-                    "[ERROR] String '{:s}' not found in heap."
+                    "String '{:s}' not found in heap."
                     .format(search_string))
                 exit(1)
     except Exception as e:
