@@ -1,6 +1,4 @@
 #include "_getline.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 /**
  * insert - insert new element to linked list
@@ -142,9 +140,8 @@ char *_getline(const int fd)
 	line_handler = parse_line(&fd_list, fd);
 
 	if (!line_handler)
-	{
 		return (NULL);
-	}
+
 	line = strdup(line_handler->line);
 
 	return (line);

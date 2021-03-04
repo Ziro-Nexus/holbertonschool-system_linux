@@ -47,5 +47,6 @@ typedef struct Line
 char *_getline(const int fd);
 fbuffer_t *parser(int fd);
 int new_line_pos(char *bf);
+void insert(list_t **list, int fd);
 
 #endif
