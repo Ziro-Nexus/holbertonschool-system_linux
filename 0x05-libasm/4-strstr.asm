@@ -34,25 +34,25 @@ _strstr:
 	push rdi
 	xor rax, rax
 
-do:
+	_strstr_while:
 	movzx edx, byte [rdi]
 	movzx ecx, byte [rsi]
 	test cl, cl
-	jz find
+	jz _strstr_found
 	cmp dl, cl
 	after:
-	jnz not_found
+	jnz _strstr_not_found
 	inc rdi
 	inc rsi
-	jmp do
+	jmp _strstr_while
 
-find:
+	_strstr_found:
 	pop rax
-	jmp end
-not_found:
+	jmp _strstr_end
+	_strstr_not_found:
 	pop rax
 	xor rax, rax
-end:
+	_strstr_end:
 	mov rsp, rbp
 	pop rbp
 	jmp _strstr_return
