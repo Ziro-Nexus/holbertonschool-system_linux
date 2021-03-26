@@ -20,5 +20,5 @@ asm_putc:
 asm_putc_end:
 	add rsp, 1
 	mov rsp, rbp
-	pop rbp	
+	pop rbp
 	ret
