@@ -18,14 +18,12 @@ asm_puti:
 	mov r13, 1
 	mov rdi, 45
 	call asm_putc
-
 test_zero:
 	test r15, r15
 	jnz wh
 	mov rdi, 48
 	call asm_putc
 	mov r13, 1
-
 wh:
 	xor rdx, rdx
 	test r15, r15
@@ -50,13 +48,11 @@ print_loop:
 	call asm_putc
 	dec r15
 	jmp print_loop
-
 loop:
 
 	cmp r13, 1
 	jne end
 	inc r14
-
 end:
 	mov rax, r14
 	pop r13
