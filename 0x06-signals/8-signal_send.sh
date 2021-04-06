@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Sends signal 'SIGQUIT' to a process given its PID
+# handle siquit
 
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <pid>"
