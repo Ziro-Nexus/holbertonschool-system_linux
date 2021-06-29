@@ -1,4 +1,3 @@
-
 #include "multithreading.h"
 
 void mutex_init(void) __attribute__((constructor));
