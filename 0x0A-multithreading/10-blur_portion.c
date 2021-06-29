@@ -4,7 +4,7 @@
  * get_sums - initialise sums
  * @r_sum:	pointer to sum
  * @g_sum:	pointer to sum
- * @b_sum:	pointer to sum 
+ * @b_sum:	pointer to sum
  * @k_sum:	pointer to sum of kernel values
  * @portion:	pointer to structure with information needed to blur
  * @pixels:	double array of pixels
